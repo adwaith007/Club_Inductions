@@ -1,0 +1,188 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+  <% function selectorUtility(value, str){
+    if(value.toString()==str.toString()){
+        return 'selected';
+    }
+} %>
+<% 
+var inshelf=false, isfavorite=false, hasliked=false,hasReviewed=false,userReview;
+user.bookshelf.forEach(function(bk){
+	if(bk.book.bookid.toString()==book.bookid.toString()){
+		inshelf=bk;
+	}
+})
+
+user.favourites.forEach(function(bk){
+	if(bk.bookid.toString()==book.bookid.toString()){
+		isfavorite=true;
+	}
+})
+
+user.booklikes.forEach(function(bk){
+	if(bk.bookid.toString()==book.bookid.toString()){
+		hasliked=true;
+	}
+})
+
+book.reviews.forEach(function(review){
+	if(review.owner._id.toString()==user._id.toString()){
+		hasReviewed=true;
+		userReview=review;
+	}
+})
+
+function reviewliked(review){
+	for(let i=0;i<user.reviewlikes.length;i++){
+		if(user.reviewlikes[i]._id.toString()==review._id.toString()){
+			return true;
+		}
+	}
+	return false;
+}
+
+%>
+	
+	<div class="container" id="booklist-target">
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-4 col-xs-12">
+					<img src="<%= book.picture %>" alt="" class="img-responsive img-rounded">
+				</div>
+				<div class="col-md-4 col-xs-12">
+					<div class="h2"><%= book.title%></div>
+					<div class="h3">Authors:</div>
+					<ul>
+					    <% book.authors.forEach(function(author){ %>
+						<li><%= author %></li>
+						<% } ) %>
+					</ul>
+					<div class="h4">Published by: <%= book.publisher %></div>
+					<div class="h5">Edition: <%= book.publishedDate %></div>
+					<div class="h5">Pages: <%= book.pageCount %></div>
+					<div class="h5">Printtype: <%= book.printType %></div>
+				</div>
+				<div class="col-md-4 col-xs-12">
+					<div class="h4">Description</div>
+					<div class="h6"><%= book.desc %></div>
+					<div class="like-wrapper">
+						<% if(!hasliked){ %>
+						<button class="btn btn-primary" style="display:inline;" id="like-btn">Like</button> <span class="badge" data-toggle="modal" data-target="#booklikes-modal"><%= book.likes.length %></span>
+						<% } else { %>
+						<button class=" btn btn-default" style="display:inline;" id="unlike-btn">Unlike</button> <span class="badge" data-toggle="modal" data-target="#booklikes-modal"><%= book.likes.length %></span>
+						<% } %>
+					</div>
+					<div id="booklikes-modal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Liked By</h4>
+
+								</div>
+								<div class="modal-body" id="booklikes-modal-body">
+								    <% book.likes.forEach(function(like){ %>
+								    	<li><a href="<%= "/profile/"+like._id%>">
+								    		<img class='img-rounded img-responsive' style='width:50px; height: 50px; display: inline;' src='<%=like.picture%>'><%=like.name %> </a></li>
+								    <% }) %>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="favourite-wrapper">
+					<% if(!isfavorite){ %>
+					<button class="btn btn-primary" id="favourite-btn">Add to favourites</button>
+					<% } else { %>
+					<button class=" btn btn-default" id="unfavourite-btn">Remove from favourites</button>
+					<% } %>
+					</div>
+					<div class="status-wrapper">
+					<% if(!inshelf){ %>
+					<button class="btn btn-primary" id="add-shelf-btn">Add to bookshelf</button>
+					<% } else { %>
+					<select class="form-control" id="bookstatus" name="bookstatus">
+						<option value="Just a book in my shelf" <%= selectorUtility(inshelf.currentstatus,"Just a book in my shelf") %>>Just a book in my shelf</option>
+						<option value="Want to read" <%= selectorUtility(inshelf.currentstatus,"Want to read") %>>Want to read</option>
+						<option value="Currently Reading" <%= selectorUtility(inshelf.currentstatus,"Currently Reading") %>>Currently Reading</option>
+						<option value="Finished Reading" <%= selectorUtility(inshelf.currentstatus,"Finished Reading") %>>Finished Reading</option>
+					</select> 
+					<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="well row">
+			<div class="col-md-6 col-xs-12">
+				<div class="h4">GBOOKS Rating: <%= book.averageGoogleRating?book.averageGoogleRating:"Not Available" %> <span class="badge"><%= book.ratingGoogleCount %></span></div>
+				<div class="h4">BOOKOGRAM Rating: <%= book.averageRating?book.averageRating:"Not Available" %> <span class="badge"><%= book.ratingCount %></span></div>
+			</div>
+	
+			<div class="col-md-6 col-xs-12">
+				<div class="h3">Your Review</div>
+				<form action="<%= "/book/"+book.bookid+"/review"%>" method="POST">
+					<div class="form-group">
+						<label for="review"></label>
+						<textarea name="desc" class="form-control"><%= hasReviewed?userReview.desc:"" %></textarea>
+					</div>
+					<div class="form-group">
+						<label for="rating"></label>
+						<input type="number" class="form-control" name="rating" max="5" min="0" value="<%= hasReviewed?userReview.rating:"" %>">
+					</div>
+					<button class="btn btn-danger" type="submit">Submit</button>
+				</form>
+			</div>
+	
+		</div>
+	
+		<div class="well row">
+			<div class="h3">User Reviews</div>
+			<div class="user-review">
+			    <% book.reviews.forEach(function(review){ %>
+				<div class="h4"><%= review.owner.name%>(<%= review.owner.username %>)</div>
+				<p><%= review.desc %></p>
+				<p>Rating: <%= review.rating %></p>
+				<p>By: <%= review.owner.name %></p>
+				<div class="revlikebtnwrapper">
+				<% if(!reviewliked(review)){ %>
+					<a data-reviewid="<%= review._id %>" class="rev-like-btn">Like</a> <span class="badge " data-toggle="modal" data-target="#revmod<%= review._id %>"><%= review.likes.length %></span>
+				<% } else {%>
+					<a data-reviewid="<%= review._id %>" class="rev-unlike-btn">Unlike</a> <span class="badge " data-toggle="modal" data-target="#revmod<%= review._id %>"><%= review.likes.length %></span>
+				<% } %>
+				</div>
+				<% if(review.owner._id.toString()== user._id.toString()){ %>
+					<form method="POST" action="<%="/book/"+book.bookid+"/review?_method=DELETE" %>">
+						<button class="btn btn-danger" type="submit">Delete</button>
+					</form>
+					
+				
+				<% } %>
+				<% } ) %>
+				
+			</div>
+		</div>
+	</div>
+	
+	<% book.reviews.forEach(function(review){ %>
+		<div id="revmod<%= review._id %>" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Liked By</h4>
+
+								</div>
+								<div class="modal-body" id="revmodbody<%= review._id %>">
+								    <% review.likes.forEach(function(like){ %>
+								    	<li><a href="<%= "/profile/"+like._id%>">
+								    		<img class='img-rounded img-responsive' style='width:50px; height: 50px; display: inline;' src='<%=like.picture%>'><%=like.name %> </a></li>
+								    <% }) %>
+								</div>
+							</div>
+						</div>
+					</div>
+	<% }) %>
+<div id="pagination-target" class="container">
+<script src="/js/book.js"></script>
+<% include ./partials/footer %>

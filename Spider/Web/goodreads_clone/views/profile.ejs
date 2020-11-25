@@ -1,0 +1,157 @@
+<% include ./partials/header%>
+<% include ./partials/navbar%>
+<% var following=false;
+ var requestsent=false;
+ var isself=false;
+ if(user._id.toString()==profileUser._id.toString()){
+ 	isself=true;
+ }
+	user.following.forEach(function(follow){
+		if(follow._id.toString()==profileUser._id.toString()){
+			following=true;
+		}
+	})
+	user.requesto.forEach(function(request){
+		if(request.user2._id.toString()==profileUser._id.toString()){
+			requestsent=true;
+		}
+	})
+%>
+<div id="booklist-target">
+
+				<div id="profileid" style="display: none"><%= profileUser._id %></div>
+				<div class="jumbotron " id="main-jumbotron">
+					<div class="container jumbo-container">
+						<div class="row">
+							<div class="col-xs-12 col-md-3 ">
+								<img src="<%= profileUser.picture %>" alt="" class="img-responsive img-rounded">
+							</div>
+							<div class="content col-xs-12 col-md-4">
+								<p><%= profileUser.name %></p>
+								<p>Member Since: <%= profileUser.membersince.toDateString() %></p>
+								<p>Books in shelf: <%= profileUser.bookshelf.length %></p>
+								<% if(!isself){ %>
+								<div id="button-wrap">
+									<% if(following){ %>
+										<button class="btn btn-default" id="unfollow-btn">Unfollow</button>
+										
+									<% } 
+									else{ %>
+									<% if(requestsent){ %>
+										<button class="btn btn-default" id="cancel-btn">Cancel Request</button>
+									<% }
+										else {%>
+											<button class="btn btn-default" id="send-btn">Send Request</button>
+										<% } %>
+									
+									<% } %>	
+								</div>
+								<% } %>
+								
+								
+								
+								
+								
+								
+								<label class="show" data-toggle="modal" data-target="#followers-modal">Followers <span class="badge"><%= profileUser.followers.length %></span></label>
+								<div id="followers-modal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Followers</h4>
+
+											</div>
+											<div class="modal-body">
+											    <% profileUser.followers.forEach(function(follower){ %>
+												<p><%= follower.name %></p>
+												<% } ) %>
+											</div>
+										</div>
+									</div>
+								</div>
+								<label data-toggle="modal" class="show" data-target="#following-modal">Following <span class="badge"><%= profileUser.following.length %></span></label>
+								<div id="following-modal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Following</h4>
+
+											</div>
+											<div class="modal-body">
+											    <% profileUser.following.forEach(function(follower){ %>
+												<p><%= follower.name %></p>
+												<% } ) %>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% if(following||(user._id.toString()==profileUser._id.toString())){%>
+							<div class=" well container col-xs-12 col-md-5">
+								<div class="h4 text-center">Actvities</div>
+								<ul class="list-group">
+                                    <% profileUser.activities.forEach(function(activity){ if(activity.privacy=="Public"){ %>
+                                        <li class="list-group-item"><%= activity.desc %></li>
+                                    <% } }) %>
+									
+								</ul>
+							</div>
+							<% }else{%>
+								<p class="h4">THIS ACCOUNT IS PRIVATE</p>
+								<p>Follow to know more...</p>
+							<% } %>
+						</div>
+					</div>
+				</div>
+				<% if(following||(user._id.toString()==profileUser._id.toString())){ %>
+				<div class="container">
+				    
+
+					<div class="row well text-center">
+						<div class="h3"><%= profileUser.name %>'s Bookshelf</div>
+						<% profileUser.bookshelf.forEach(function(book){ %>
+    						    <div class='col-lg-4 col-md-6 col-sm-12'>
+										<a href='<%= "/book/" + book.book.id %>'>
+											<img src='<%= book.book.picture %>' class='img-thumbnail' style='width:150px; height:200px;'>
+										</a>
+									</div>
+						<% }) %>
+					</div>
+
+
+					<div class="row well text-center">
+						<div class="h3">Favourites</div>
+						<% profileUser.favourites.forEach(function(book){ %>
+    						    <div class='col-lg-4 col-md-6 col-sm-12'>
+										<a href='<%= "/book/" + book.id %>'>
+											<img src='<%= book.picture %>' class='img-thumbnail' style='width:150px; height:200px;'>
+										</a>
+									</div>
+						<% }) %>
+					</div>
+
+
+					<div class="row well text-center">
+						<div class="h3">Currently Reading</div>
+						<% profileUser.bookshelf.forEach(function(book){ %>
+						    <% if(book.currentstatus="Currently Reading") { %>
+    						    <div class='col-lg-4 col-md-6 col-sm-12'>
+										<a href='<%= "/book/" + book.book.id %>'>
+											<img src='<%= book.book.picture %>' class='img-thumbnail' style='width:150px; height:200px;'>
+										</a>
+									</div>
+						    <% } %>
+						<% }) %>
+						
+					</div>
+
+
+	</div>
+	<% } %>
+</div>
+<div id="pagination-target" class="container">
+	<script type="text/javascript" src="/js/profile.js"></script>
+
+<% include ./partials/footer%>

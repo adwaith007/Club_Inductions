@@ -1,0 +1,200 @@
+#container{
+	/* box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); */
+	width: 90%;
+	margin: 100px auto;
+	background: transparent;
+}
+*{
+	box-sizing: border-box;
+}
+h1{
+	background: #2980b9;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size:24px;
+	padding: 10px 20px;
+	margin: 0;
+	color:white;
+	display: flex;
+	justify-content: space-between;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+.sortbtn{
+	background: #37474F;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size:0.8em;;
+	padding: 10px 20px;
+	margin: 0;
+	color:white;
+	text-align: center;
+	margin-top: 1em;
+	cursor: pointer;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+.hidden{
+	display: none !important;
+	/* transition: display 0.5s; */
+}
+/* For Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+h2{
+	background: #d9534f;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size:24px;
+	padding: 10px 20px;
+	margin: 0;
+	color:white;
+	display: flex;
+	justify-content: space-between;
+	/* box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); */
+}
+input:invalid{
+	box-shadow: none;
+}
+.addbtn{
+	background: #5cb85c;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size:24px;
+	padding: 10px 20px;
+	margin: 0;
+	color:white;
+	text-align: center;
+}
+.edit_btn{
+	background: #37474F;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size:10px;
+	padding: 10px 20px;
+	margin: 0;
+	color:white;
+	text-align: center;
+}
+.rollbox{
+	background: #37474F;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size:10px;
+	padding: 10px 20px;
+	margin: 0;
+	color:white;
+	text-align: center;
+}
+input{
+	box-sizing: border-box;
+	width: 100%;
+	background: #f7f7f7;
+	padding: 13px 13px 13px 20px;
+	font-size: 18px;
+	border: 2px solid rgba(0, 0, 0, 0);
+	text-align: center;
+
+}
+.fa, .edit_btn{
+	cursor: pointer; }
+input:focus{
+	border: 3px solid #2980b9;
+	background: #fff;
+	color: #2980b9;
+	outline: none;
+
+}
+.mentee_box{
+	display: grid;
+	grid-template-columns: repeat(3,1fr);
+	grid-column-gap: 2%;
+	grid-row-gap: 4%;
+	background: transparent;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	padding: 0;
+}
+
+.mentee{
+	grid-column: span 3;
+	margin: 0;
+	/* margin: 1.66%; */
+	display: inline-block;
+	/* float: left; */
+	/* box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); */
+	/* background: #f7f7f7; */
+	background: transparent;
+}
+
+@media screen and (min-width: 760px)
+{
+	.mentee{
+		grid-column: span 1;
+		margin: 0;
+		/* margin: 1.66%; */
+		display: inline-block;
+		/* box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); */
+		background: transparent;
+	}
+}
+
+
+.rating{
+	background: #fff;
+	height: 50px;
+	line-height: 40px;
+	color: #fff;
+	padding: 10px 20px;
+	margin:0;
+	display: flex;
+	justify-content: space-between;
+	/* box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); */
+}
+.comment{
+	background: #37474F;
+	margin: 0;
+	box-sizing: border-box;
+	line-height: 40px;
+	color: #fff;
+	padding: 10px 20px;
+	text-align:center;
+	transition: 0.2s linear;
+	display: inline-block;
+	width: 100%;
+}
+.fa-plus,.fa-trash{
+	float: right;
+}
+.addbtn{
+	cursor: pointer;
+}
+.fa-code{
+	padding: 10px 0;
+}
+
+
+body{
+	font-family: Roboto;
+	background: #2BC0E4;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+}
+#newmentee{
+	display: inline-block;
+	width: 100%;
+}
+.hidden_h{
+
+	display: none !important;
+
+}

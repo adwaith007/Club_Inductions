@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity"
+    android:background="#37474f"
+    >
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="43dp"
+        android:layout_height="59dp"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_alignTop="@+id/totamt"
+        android:gravity="right"
+        android:text="₹"
+        android:textSize="30sp"
+        android:layout_alignLeft="@+id/textView5"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="43dp"
+        android:layout_marginStart="64dp"
+        android:onClick="set1"
+        android:text="₹1"
+        android:textColor="#fff"
+        android:background="#00695C"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btn1"
+        android:layout_marginStart="193dp"
+        android:onClick="set2"
+        android:text="₹2"
+        android:textColor="#fff"
+        android:background="#00695C"/>
+
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btn1"
+        android:layout_marginEnd="160dp"
+        android:onClick="set5"
+        android:text="₹5"
+        android:textColor="#fff"
+        android:background="#00695C"/>
+
+    <Button
+        android:id="@+id/btn10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/newbtn"
+        android:layout_alignTop="@+id/btn1"
+        android:onClick="set10"
+        android:text="₹10"
+        android:textColor="#fff"
+        android:background="#00695C"/>
+
+    <Button
+        android:id="@+id/newbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/resetbtn"
+        android:layout_marginEnd="46dp"
+        android:onClick="newgame"
+        android:text="New Game"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:background="#00695C"/>
+
+    <Button
+        android:id="@+id/resetbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn1"
+        android:layout_centerVertical="true"
+        android:onClick="reset"
+        android:text="RESET"
+        android:textColor="#fff"
+        android:background="#00695C"/>
+
+    <TextView
+        android:id="@+id/totamt"
+        android:layout_width="63dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="63dp"
+        android:gravity="left"
+        android:text=""
+        android:textColor="#fff"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/curamt"
+        android:layout_width="68dp"
+        android:layout_height="58dp"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_toEndOf="@+id/textView7"
+        android:gravity="left"
+        android:text=""
+        android:textSize="30sp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="109dp"
+        android:layout_height="39dp"
+        android:layout_above="@+id/textView7"
+        android:layout_alignStart="@+id/textView6"
+        android:gravity="center"
+        android:text="Total Amt"
+        android:textSize="20sp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="110dp"
+        android:layout_height="35dp"
+        android:layout_above="@+id/totamt"
+        android:layout_alignStart="@+id/btn10"
+        android:layout_marginBottom="-63dp"
+        android:gravity="center"
+        android:text="Current Amt"
+        android:textSize="20sp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="43dp"
+        android:layout_height="59dp"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_marginEnd="-64dp"
+        android:layout_toStartOf="@+id/btn1"
+        android:gravity="right"
+        android:text="₹"
+        android:textSize="30sp"
+        android:textColor="#fff" />
+</RelativeLayout>

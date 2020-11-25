@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl"
+    android:onClick="ctrl"
+    android:background="#5cb85c">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/insptime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="fill"
+            android:layout_rowWeight="1"
+            android:text="15:00"
+            android:textColor="#ffffff"
+            android:textSize="70sp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            />
+        <TextView
+            android:id="@+id/tottime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_gravity="fill"
+            android:layout_rowWeight="1"
+            android:text="00:00:00"
+            android:textColor="#ffffff"
+            android:textSize="70sp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"/>
+    </GridLayout>
+
+</RelativeLayout>

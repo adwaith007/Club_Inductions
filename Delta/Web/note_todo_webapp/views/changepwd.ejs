@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Change Password</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/changepwd.css">
+</head>
+<body>
+  <div class="outer">
+    <div class="middle">
+      <div class="main-container">
+        <div class="image-wrapper">
+          <div class="outer">
+            <div class="middle">
+              <img src="/images/lock.jpg" >
+            </div>
+          </div>
+
+        </div>
+        <div class="content-wrapper">
+          <div class="outer content">
+            <div class="middle">
+
+              <h1>Change Password</h1>
+              <form action="/<%=user._id %>/changepwd" method="POST">
+                <input type="password" name="password" placeholder="Password" minlength="8" required><br>
+                <button type="submit">Change My Password</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<html>

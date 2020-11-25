@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%=user.name%>'s Profile</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/show.css">
+</head>
+<body>
+	
+	<div class="outer">
+		<div class="middle">
+			<div class="navbar">
+				<a href="/logout" class="logout"><button>Logout</button></a>
+				<p class="welcome">Welcome <%= user.name %></p>
+				<a class="newpost" href=<%="/profile/new" %>><button>New Post</button></a>
+			</div>
+
+			<div class="sortoptions-container">
+				<p class="sort-head">Sort By</p>
+				<div class="sortwrapper">
+					<a class="sortoption" href=<%="/profile?sortkey=date" %>><button>Date Created</button></a>
+					<a class="sortoption" href=<%="/profile?sortkey=modified" %>><button>Last Edited</button></a>
+					<a class="sortoption" href=<%="/profile?sortkey=importance" %>><button>Importance</button></a>
+				</div>
+			</div>
+			<div class="labelsearch-container" >
+				<p class="sort-head">Search By Label</p>
+				<form method="GET" action=<%="/profile" %>>
+					<input type="text" type="text" name="label" placeholder="Label" required>
+					<button type="submit" class="labelbtn">Search</button>
+				</form>
+			</div>
+				<% if(errors&&errors!=""){ %>
+                	<p class="error"><%= errors %></p>
+            	<% } %>
+            	<% if(label&&label!=""){ %>
+                	<p>Search results for "<%= label %>"</p>
+            	<% } %>
+			<div class="main-container">
+
+
+				<div class="todo-container">
+					<p class="type-heading">Todos</p>
+					<% user.todos.forEach(function(todo){ %>
+					<div class="block">
+						<form method="POST" id="todocapture" action="<%="/todos/"+todo._id+"?_method=PUT" %>">
+							<div class="head-row">
+								<input type="text" class="todo-heading" name="title" placeholder="Title" value="<%= todo.title %>" required>
+								<button class="save-btn" type="submit">Save</button>
+							</div>
+							<div class="importance-wrap">
+								<label>Importance: </label><input type="number" class="importance" name="importance" placeholder="Importance" value="<%= todo.importance %>" required>
+							</div>
+							<div class="label-wrap">
+								<label >Label: </label><input type="text" class="label" name="label" placeholder="label" value="<%= todo.label %>" required>
+							</div>
+							<div class="todo-items">
+								<% for(let i=0;i<todo.items.length;i++){ %>
+								<div class="todo-item">
+									<input type="checkbox" class="check" name="<%="items["+ i +"][state]"%>" onclick="checker()" value=true <% if(todo.items[i].state){%> checked <% } %>>
+									<input type="text" name="<%="items["+ i +"][content]"%>" placeholder="Item" value="<%= todo.items[i].content %>">
+								</div>
+								<% } %>
+							</div>
+							</form>
+							<div class="addmore-wrap">
+									<button class="addmore-btn">Add More</button>
+							</div>
+						<div class="date">
+							<p>Created: <%= todo.created.toDateString()%> <%=todo.created.toTimeString().substr(0, 8)%> </p>
+							<p>Last Save: <%= todo.lastEdit.toDateString()%> <%=todo.lastEdit.toTimeString().substr(0, 8)%></p>
+						</div>
+						<div class="delete-btn-wrap">
+							<form method="POST" action=<%="/todos/" +todo._id +"?_method=DELETE" %>>
+								<button class="delete-btn">Delete</button>
+							</form>
+						</div>
+
+						<div class="collaborators">
+							<h4>Collaborators</h4>
+							<% todo.collaborators.forEach(function(collab){ %>
+							<% if(collab!=user.email){ %>
+							<form method="POST" action=<%= "/todos/"+todo._id+"/remove" %> >
+							<input name="email" class="collabs" value="<%= collab %>" readonly> <button type="submit" class="trashbtn"><i class="fa fa-trash"></i></button><br>
+							</form>
+							<% } }) %>
+						</div>
+						<div class="add-colab">
+							<h4>Add Collaborator</h4>
+							<form method="POST" action=<%= "/todos/"+todo._id+"/add" %>>
+								<input type="text" name="email" placeholder="Email" class="add-colab-input" required>
+								<button type="submit" class="add-colab-btn">Add</button>
+							</form>
+						</div>
+
+					</div>
+					<% }) %>
+				</div>
+
+
+				<div class="note-container">
+					<p class="type-heading">Notes</p>
+					<% user.notes.forEach(function(note){ %>
+					<div class="block">
+						<form method="POST"  action=<%="/notes/"+note._id+"?_method=PUT" %>>
+							<div class="head-row">
+								<input type="text" class="todo-heading" name="title" placeholder="Title" value="<%= note.title %>" required>
+								<button class="save-btn" type="submit">Save</button>
+							</div>
+							<div class="importance-wrap">
+								<label>Importance: </label><input type="number" class="importance" name="importance" value="<%= note.importance %>" required>
+							</div>
+							<div class="label-wrap">
+								<label >Label: </label><input type="text" class="label" name="label" value="<%= note.label %>" required>
+							</div>
+							<div class="content-wrap">
+								<textarea class="note-area" name="content" placeholder="Content" onkeyup="textAreaAdjust(this)" required><%= note.content %></textarea>
+							</div>
+						</form>
+							<% if(note.picture){ %>
+							<div class="pic-wrap">
+									<img src="/../<%= note.picture %>" class="note-image">
+							</div>
+							<% } %>
+							<div class="pic-btns-wrap">
+								<% if(note.picture){ %>
+								<form method="POST" action="<%= "/notes/"+note._id+"/picture?_method=DELETE" %>" >
+								<button class="delete-pic-btn">Delete Pic</button>
+								</form>
+								<% }else{ %>
+								<form method="POST" action="<%= "/notes/"+note._id+"/picture?_method=PUT" %>" enctype="multipart/form-data" >
+									<input type="file" name="picture" class="file-input" required>
+									<button class="add-pic-btn">Add Pic</button>
+								</form>
+								<% } %>
+							</div>
+
+
+
+						<div class="date">
+							<p>Created: <%= note.created.toDateString()%> <%=note.created.toTimeString().substr(0, 8)%> </p>
+							<p>Last Save: <%= note.lastEdit.toDateString()%> <%=note.lastEdit.toTimeString().substr(0, 8)%></p>
+						</div>
+						<div class="delete-btn-wrap">
+							<form method="POST" action=<%="/notes/" +note._id +"?_method=DELETE" %>>
+								<button class="delete-btn">Delete</button>
+							</form>
+						</div>
+
+						<div class="collaborators">
+							<h4>Collaborators</h4>
+							<% note.collaborators.forEach(function(collab){ %>
+							<% if(collab!=user.email){ %>
+							<form method="POST" action=<%= "/notes/"+note._id+"/remove" %> >
+							<input name="email" class="collabs" value="<%= collab %>" readonly> <button type="submit" class="trashbtn"><i class="fa fa-trash"></i></button><br>
+							</form>
+							<% } }) %>
+						</div>
+						<div class="add-colab">
+							<h4>Add Collaborator</h4>
+							<form method="POST" action=<%= "/notes/"+note._id+"/add" %>>
+								<input type="text" name="email" placeholder="Email" class="add-colab-input" required>
+								<button type="submit" class="add-colab-btn">Add</button>
+							</form>
+						</div>
+					</div>
+					<% }) %>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="/scripts/show.js" type="text/javascript"></script>
+</body>
+
+<html>

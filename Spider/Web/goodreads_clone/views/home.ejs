@@ -1,0 +1,153 @@
+<% include ./partials/header%>
+<% include ./partials/navbar%>
+
+  <% function selectorUtility(value, str){
+    if(value.toString()==str.toString()){
+        return 'selected';
+    }
+} %>
+<div id="fb-root"></div>
+	<div id="booklist-target">
+		
+				<div class="jumbotron " id="main-jumbotron">
+					<div class="container jumbo-container">
+						<div class="row">
+							<div class="col-xs-12 col-md-3 ">
+								<img src="<%= user.picture %>" alt="" class="img-responsive img-rounded">
+							</div>
+							<div class="content col-xs-12 col-md-4">
+								<p><%= user.name %></p>
+								<p>Member Since: <%= user.membersince.toDateString() %></p>
+								<p>Books in shelf: <%= user.bookshelf.length %></p>
+								<label class="show" data-toggle="modal" data-target="#followers-modal">Followers <span class="badge"><%= user.followers.length %></span></label>
+								<div id="followers-modal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Followers</h4>
+
+											</div>
+											<div class="modal-body">
+											    <% user.followers.forEach(function(follower){ %>
+												<p><img class='img-rounded img-responsive' style='width:50px; height: 50px; display: inline;' src='<%=follower.picture%>'><%= follower.name %></p>
+												<% } ) %>
+											</div>
+										</div>
+									</div>
+								</div>
+								<label data-toggle="modal" class="show" data-target="#following-modal">Following <span class="badge"><%= user.following.length %></span></label>
+								<div id="following-modal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Following</h4>
+
+											</div>
+											<div class="modal-body">
+											    <% user.following.forEach(function(follower){ %>
+												<p><img class='img-rounded img-responsive' style='width:50px; height: 50px; display: inline;' src='<%=follower.picture%>'><%= follower.name %></p>
+												<% } ) %>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class=" well container col-xs-12 col-md-5">
+								<div class="h4 text-center">Your Actvities</div>
+								<ul class="list-group">
+                                    <% user.activities.reverse().forEach(function(activity){ %>
+                                        <li class="list-group-item text-center"><%= activity.desc %> 
+                                         <select class="form-control btn-btn-primary activity-privacy" data-actid="<%= activity._id %>" name="privacy" id="privacy-value">
+			                              <option value="Public" <%= selectorUtility(activity.privacy,"Public") %> >Public</option>
+			                              <option value="Private" <%= selectorUtility(activity.privacy,"Private") %> >Private</option>
+			                            </select>
+			                            <button class="btn btn-primary" onclick="postToFb('<%= activity.desc %>')">Share on FB</button>
+										</li>
+                                    <% }) %>
+									
+								</ul>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				
+
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 well container">
+							<div class="h4 text-center">NewsFeed</div>
+							
+							<ul class="list-group" id="newsfeed-list">
+								<li class="list-group-item text-center h5">Fetching NewsFeed</li>
+							</ul>
+						</div>
+					</div>
+				    
+				    <div class="row well text-center">
+						<div class="h3 text-center" >You may also like</div>
+						<div id="suggestion" class="row">
+							<span class="text-center">Searching the best books for you.</span>
+						</div>
+						
+					</div>
+
+					<div class="row well text-center">
+						<div class="h3">Adwaith's Bookshelf</div>
+						<% user.bookshelf.forEach(function(book){ %>
+    						    	<div class='col-lg-4 col-md-6 col-sm-12'>
+										<a href='<%= "/book/" + book.book.id %>'>
+											<img src='<%= book.book.picture %>' class='img-thumbnail' style='width:150px; height:200px;'>
+										</a>
+									</div>
+						<% }) %>
+					</div>
+
+
+					<div class="row well text-center">
+						<div class="h3">Favourites</div>
+						<% user.favourites.forEach(function(fav){ %>
+    						    <div class='col-lg-4 col-md-6 col-sm-12'>
+										<a href='<%= "/book/" + fav.id %>'>
+											<img src='<%= fav.picture %>' class='img-thumbnail' style='width:150px; height:200px;'>
+										</a>
+									</div>
+						<% }) %>
+					</div>
+
+
+					<div class="row well text-center">
+						<div class="h3">Currently Reading</div>
+						<% user.bookshelf.forEach(function(book){ %>
+						    <% if(book.currentstatus=="Currently Reading") { %>
+    						    <div class='col-lg-4 col-md-6 col-sm-12'>
+										<a href='<%= "/book/" + book.book.id %>'>
+											<img src='<%= book.book.picture %>' class='img-thumbnail' style='width:150px; height:200px;'>
+										</a>
+								</div>
+						    <% } %>
+						<% }) %>
+						
+					</div>
+
+
+
+	</div>
+	
+</div>
+
+<div id="pagination-target" class="container">
+	
+</div>
+
+	
+	<script type="text/javascript" src="/js/home.js"></script>
+
+
+
+<% include ./partials/footer%>

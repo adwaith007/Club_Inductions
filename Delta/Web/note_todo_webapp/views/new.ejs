@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Content</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/new.css">
+</head>
+<body>
+  <div class="outer">
+    <div class="middle">
+      <div class="main-container">
+
+				<div class="content-wrapper">
+					<div class="outer">
+						<div class="middle">
+
+							<h2>New Note</h2>
+							<form method="POST" id="noteform" action="<%= "/profile/notes" %>">
+								<input type="text" name="title" placeholder="Title" required>
+								<textarea name="content" form="noteform" placeholder="Content" cols="40" rows="5" required></textarea>
+								<input type="number" name="importance" placeholder="Importance" required>
+								<input type="text" name="label" placeholder="Label" required>
+								<button type="submit" class="submitbtn" >Add new note</button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+        <div class="content-wrapper">
+          <div class="outer">
+            <div class="middle">
+								<h2>New Todo</h2>
+								<button type="button" id="addmore">Add more</button>
+              <form method="POST" action=<%= "/profile/todos" %>>
+								<input type="text" name="title" placeholder="Title" required>
+								<div class="todoitems">
+									<input type="text" name="items[0]" placeholder="Item" required>
+								</div>
+								<input type="number" name="importance" placeholder="Importance" required>
+								<input type="text" name="label" placeholder="Label" required>
+								<button type="submit" class="submitbtn">Add new todo</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    var counter =1;
+    var addbtn= document.querySelector("#addmore");
+    var todoitems=document.querySelector(".todoitems");
+    addbtn.addEventListener("click", function(){
+				if(counter<3){
+					todoitems.innerHTML+="<input type='text' name='items["+ counter + "]' placeholder='Item'>";
+					counter++;
+				}
+
+    })
+</script>
+
+
+</body>
+
+<html>

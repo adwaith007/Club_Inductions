@@ -1,0 +1,37 @@
+.list-group{
+    max-height: 200px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+    overflow-x:hidden;
+}
+
+body{
+  font-family: Raleway;
+}
+a{
+  color: black;
+  cursor: pointer;
+}
+.glyphicon{
+  font-size: 0.8em;
+}
+
+[data-toggle="modal"]{
+  cursor: pointer;
+}
+li{
+  list-style-type: none;
+}
+
+body{
+  background: #2D213E;
+}
+
+.jumbotron{
+  background-color: #acad36;
+}
+
+.well{
+  background-color: #A195AE;
+}

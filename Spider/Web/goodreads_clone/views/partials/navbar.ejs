@@ -1,0 +1,124 @@
+  <% function selectorUtility(value, str){
+    if(value.toString()==str.toString()){
+        return 'selected';
+    }
+} %>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/home">Bookogram</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <form class="navbar-form navbar-left">
+        <!--<div class="form-group">-->
+        <!--  <input type="text" class="form-control" placeholder="Search Users">-->
+        <!--</div>-->
+         <div class="dropdown">
+           <input type="text" class="form-control dropdown-toggle" id="name-search" data-toggle="dropdown" placeholder="Search Users">
+          <ul class="dropdown-menu" style="width: 200px;"id="userlist-target">
+          </ul>
+        </div> 
+        
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+				<li>
+				  <a href="#" class="show" data-toggle="modal" data-target="#books-modal">Find Books</a>
+				  <ul class="dropdown-menu">
+            <div class="well " id="request-target">
+              
+            </div>
+          </ul>
+          
+          <div id="books-modal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Find all books</h4>
+
+											</div>
+											<div class="modal-body">
+											  <div class="form-group">
+											    <label for="bookkey">Enter key</label>
+											    <input type="text" class="form-control" name="bookkey" id="bookkey">
+											  </div>
+											  <div class="form-group">
+											    <label for="parameter">Search By</label>
+											    <select class="form-control" name="parameter" id="search-parameter" value="title">
+											      <option value="title">Title</option>
+											      <option value="author">Author</option>
+											      <option value="publisher">Publisher</option>
+											      <option value="ISBN">ISBN</option>
+											      <option value="subject">Subject</option>
+											    </select>
+											  </div>
+											    
+											</div>
+										</div>
+									</div>
+					</div>
+					
+					
+				</li>
+				<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Requests</a>
+          <ul class="dropdown-menu">
+            <div class="well " id="request-target">
+              <% user.requesti.forEach(function(request){ %>
+              <li>
+              	<%= request.user1.name %> <button class="btn btn-success accept-btn" data-reqid="<%= request._id %>">Accept</button> <button class="btn btn-danger reject-btn" data-reqid="<%= request._id %>">Reject</button>
+              </li>
+              <% } ) %>
+              <% if(user.requesti.length==0){ %>
+                <li><p >No Requests Yet</p></li>
+              <% } %>
+            </div>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/logout">Logout</a></li>
+            <li><a href="#" class="show" data-toggle="modal" data-target="#setting-modal">Settings</a>
+							</li>
+						<li><a href="/changepwd">Change Password</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+								<div id="setting-modal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Change Settings</h4>
+
+											</div>
+											<div class="modal-body" id="privacy-modal">
+											   
+											     <form class="form-group">
+                            <label for="privacy">Default Activity Privacy</label>
+                            <p>Current privacy setting: <%= user.privacyType %></p>
+                            <select class="form-control" name="privacy" id="privacy-value">
+                              <option value="Public"  <%= selectorUtility(user.privacyType,"Public") %>>Public</option>
+                              <option value="Private" <%= selectorUtility(user.privacyType,"Private") %>>Private</option>
+                            </select>
+                            <button class="btn btn-primary" id="save-privacy" type="button">Save</button>
+                          </form> 
+											</div>
+										</div>
+									</div>
+								</div>

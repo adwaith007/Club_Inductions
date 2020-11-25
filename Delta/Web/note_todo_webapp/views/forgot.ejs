@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forgot Password</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/forgot.css">
+</head>
+<body>
+  <div class="outer">
+    <div class="middle">
+      <div class="main-container">
+        <div class="image-wrapper">
+          <div class="outer">
+            <div class="middle">
+              <img src="/images/email.png" >
+            </div>
+          </div>
+
+        </div>
+        <div class="content-wrapper">
+          <div class="outer content">
+            <div class="middle">
+
+              <h1>Enter Email-Id</h1>
+              <% if(errors&&errors!=""){ %>
+                <p class="error"><%= errors %></p>
+              <% } %>
+              <form action="/forgot" method="POST">
+                <input type="email" name="email" placeholder="Email" required><br>
+                <button type="submit">Find My Account</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<html>

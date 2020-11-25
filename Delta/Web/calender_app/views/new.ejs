@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Schedule</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/new.css">
+</head>
+<body>
+  <div class="outer">
+    <div class="middle">
+    	<div class="navbar">
+					<a href="/profile" class="nav-btn-wrap"><button class="newpost">Home</button></a>
+					<p class="welcome">Welcome <%= user.name %></p>
+					<a href="/logout" class="nav-btn-wrap"><button class="logout">Logout</button></a>
+					
+					
+				</div>
+      <div class="main-container">
+
+				<div class="content-wrapper">
+					<div class="outer">
+						<div class="middle">
+
+							<h2>New Appointment</h2>
+							<form method="POST"id="appointmentform" action="<%= "/profile/new/appointment" %>">
+								<input type="text" name="title" placeholder="Title" required>
+								<textarea name="desc" form="appointmentform" placeholder="Description" cols="40" rows="5" required></textarea>
+								<input type="datetime-local" name="start" required>
+								<input type="datetime-local" name="end" required>
+								<button type="submit" class="submitbtn" >Add new appointment</button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+        <div class="content-wrapper">
+          <div class="outer">
+            <div class="middle">
+								<h2>New Meeting</h2>
+              <form method="POST" id="meetingform" action="/profile/meetings/new">
+								<input type="text" name="username" placeholder="Username of User" required>
+								<input type="datetime-local" name="start" required>
+								<input type="datetime-local" name="end" required>
+								
+								<button type="submit" class="submitbtn">Send Meeting Request</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<html>

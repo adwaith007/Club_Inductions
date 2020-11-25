@@ -1,0 +1,50 @@
+<% include ./partials/header%>
+<div class="ui container main segment searchbar">
+    <form action="/results" method="GET" class="ui form search">
+        <div class="ui huge header">
+            Find your favorites here!!!
+        </div>
+        <div class="field">
+            <label>
+                Moviename
+            </label>
+            <input type="text" placeholder="Moviename" name="name">
+        </div>
+        <div class="field">
+            <label>
+                Year of release
+            </label>
+            <input type="text" placeholder="Year of release" name="year">
+        </div>
+        <div class="field">
+            <label>
+                Genre
+            </label>
+            <select name="ty" class="ui selection dropdown">
+                <option value="">All</option>
+                <option value="movie">Movie</option>
+                <option value="series">Series</option>
+                <option value="episode">Episode</option>
+            </select>
+        </div>
+        <div class="field">
+            <input type="submit" value="Find Movies" class="ui button black">
+        </div>
+        
+        
+    </form>
+</div>
+
+<div class="ui container main segment searchbar">
+    <div class="ui huge header">Recent Searches</div>
+    <% for(var i=recent.length-1; i>=0;i--){ %>
+        <div>
+            
+            <a href="<%= "/results?name="+recent[i]["name"]+"&year="+recent[i]["year"]+"&ty="+recent[i]["ty"]+"&p=1"; %>" class="ui button black recent"> <%=recent[i]["name"].toUpperCase() %> </a>
+        
+        </div>
+    <% } %>
+</div>
+
+
+<% include ./partials/footer%>

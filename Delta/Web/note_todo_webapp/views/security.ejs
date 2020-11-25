@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Security Question</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/security.css">
+</head>
+<body>
+  <div class="outer">
+    <div class="middle">
+      <div class="main-container">
+        <div class="image-wrapper">
+          <div class="outer">
+            <div class="middle">
+              <img src="/images/security.png" >
+            </div>
+          </div>
+
+        </div>
+        <div class="content-wrapper">
+          <div class="outer content">
+            <div class="middle">
+
+              <h2>Answer Security Question</h2>
+              <% if(errors&&errors!=""){ %>
+                <p class="error"><%= errors %></p>
+              <% } %>
+              <p><%= user.question %></p>
+              <form action="/<%=user._id %>/question" method="POST">
+                <input type="password" name="answer" placeholder="Answer" required><br>
+                <button type="submit">I think that's right</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<html>

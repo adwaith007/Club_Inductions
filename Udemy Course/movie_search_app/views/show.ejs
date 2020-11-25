@@ -1,0 +1,32 @@
+<% include ./partials/header%>
+<div class="ui container main">
+    <div class ="ui container segment showbox"><h1><%=data["Title"]%></h1></div>
+    
+        <div class="ui container segment showbox">
+            <img src="<%= data["Poster"] %>" class="ui medium rounded image showimage">
+            <div class="ui container segment infobox"><label>Year </label><%= data["Year"] %></div>
+            <div class="ui container segment infobox"><label>Rated </label><%= data["Rated"] %></div>
+            <div class="ui container segment infobox"><label>Released </label><%= data["Released"] %></div>
+            <div class="ui container segment infobox"><label>Runtime </label><%= data["Runtime"] %></div>
+            <div class="ui container segment infobox"><label>Genre </label><%= data["Genre"] %></div>
+            <div class="ui container segment infobox"><label>Director </label><%= data["Director"] %></div>
+            <div class="ui container segment infobox"><label>Actors </label><%= data["Actors"] %></div>
+            <div class="ui container segment infobox"><label>Plot </label><%= data["Plot"] %></div>
+            <div class="ui container segment infobox"><label>Language </label><%= data["Language"] %></div>
+            <div class="ui container segment infobox"><label>Country </label><%= data["Country"] %></div>
+            <div class="ui container segment infobox"><label>Awards </label><%= data["Awards"] %></div>
+            <div class="ui container segment infobox"><label>Type </label><%= data["Type"] %></div>
+            <div class="ui container segment infobox"><label>Total Seasons </label><%= data["totalSeasons"] %></div>
+            <div class="ui container segment infobox"><label>imdbID </label><%= data["imdbID"] %></div>
+            <div class="ui container segment infobox"><label>imdbVotes </label><%= data["imdbVotes"] %></div>
+            
+            
+        
+        </div>
+    <div class="searchagainbtn btns">
+        <a href="/movies" class="ui grey button again">Find Another Movie</a>
+    </div>
+</div>
+
+
+<% include ./partials/footer%>

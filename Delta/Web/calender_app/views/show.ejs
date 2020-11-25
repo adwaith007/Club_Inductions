@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= user.name %>'s Page</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/show.css">
+</head>
+<body>
+	<div class="outer">
+		<div class="middle targetbox">
+			<div class="navbar">
+				<a href="/logout" class="nav-btn-wrap"><button class="logout">Logout</button></a>
+				<p class="welcome">Welcome</p>
+				<a href="/profile/new" class="nav-btn-wrap"><button class="newpost">Schedule New Task</button></a>
+			</div>
+			<div class="navbar">
+				<a href="/profile/meetings" class="nav-btn-wrap"><button class="logout">Meeting Requests</button></a>
+				<div class="imgwrap"><img class="profileimg " src="<%= user.picture%>"></div>
+				<a href="/changepwd" class="nav-btn-wrap"><button class="newpost">Change Password</button></a>
+			</div>
+			
+			<div class="username"><%= user.name%></div>
+			<% if(errors&&errors!=""){ %>
+			<p class="error"><%= errors %></p>
+			<% } %>
+			<div class="day-container-wrap">
+			<% var date= (new Date());
+                console.log(date);
+                var currentdate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                var nextmonthdate=new Date(date.getFullYear(), date.getMonth()+1, 1);
+                var i=0;
+                for(i=1;i<=30;i++){ %>
+                    <a href='<%="/profile/date/"+ currentdate.toDateString().replace(/\ /g, "-") %>'>
+                    	
+	        				<div class='day-container <%=currentdate.toDateString().replace(/\ /g, "") %>'>
+	        					<p class='date-header'> <%= currentdate.toDateString() %></p>
+	        					
+	        					<% user.appointments.forEach(function(appointment){ 
+	        						let t=new Date(appointment.start);
+	        					   if(t.toDateString()==currentdate.toDateString()){ %>
+	        					    <li type="circle"><%= appointment.title%></li>
+	        					<% } %>
+	        					<% }) %>
+	        				</div>
+        				
+    			    </a>
+    			<% currentdate=new Date(date.getFullYear(), date.getMonth(), date.getDate()+i);} %>
+    			</div>
+
+		</div>
+	</div>
+</body>
+
+<html>

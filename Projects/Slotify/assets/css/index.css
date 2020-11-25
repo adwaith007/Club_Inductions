@@ -1,0 +1,535 @@
+#nowPlayingBarContainer {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    background-color: black;
+    margin: auto 0;
+}
+* {
+    font-family: "Helvetica Neue";
+}
+
+#nowPlayingBar {
+    display:flex;
+    height: 90px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+html, body {
+    height:100vh;
+    margin:0;
+}
+
+body {
+    background-color: #181818;
+    font-size: 14px;
+    min-width: 720px;
+}
+
+#nowPlayingLeft {
+    width:30%;
+    min-width: 160px;
+}
+
+#nowPlayingRight {
+    width:30%;
+    min-width: 160px;
+    position: relative;
+    margin-top: 16px;
+}
+
+#nowPlayingCenter {
+    width:40%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    min-width: 264px;
+}
+
+#nowPlayingBar .content {
+    width:100%;
+    height: 57px;
+}
+
+.playerControls .button {
+    margin: 0 auto;
+    display: table;
+}
+
+.controlButton {
+    background-color: transparent;
+    border:none;
+    vertical-align: middle;
+}
+
+.controlButton img {
+    height:20px;
+    width: 20px;
+}
+
+.playButton img,
+.pauseButton img{
+    height:32px;
+    width: 32px;
+}
+
+.progressTime {
+    color:white;
+    text-align: center;
+    min-width: 40px;
+    font-size: 11px;
+}
+
+.playbackBar {
+    display:flex;
+}
+
+.progressBar {
+    width: 100%;
+    height: 12px;
+    display: inline-flex;
+    cursor: pointer;
+    margin-top:3px;
+}
+
+.progressBarbg{
+    background-color: #404040;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+}
+
+.progress {
+    background-color: #808080;
+    height: 4px;
+    width: 0;
+    border-radius: 2px;
+}
+.albumLink img {
+    height:100%;
+    max-width:57px;
+    margin-right:10px;
+    float: left;
+    background-size: cover;
+
+}
+
+.trackInfo {
+    display: table;
+}
+
+#nowPlayingLeft .trackName {
+    display: inline-block;
+    width: 100%;
+    margin: 6px 0;
+}
+
+#nowPlayingLeft .artistName {
+    font-size: 12px;
+    font-weight: 100;
+    letter-spacing: 0.2em;
+}
+
+.volumeBar {
+    width: 180px;
+    position: absolute;
+    right:0;
+
+}
+
+.volumeBar .progressBar {
+    width: 125px;
+}
+
+#topContainer {
+    min-height: 100%;
+    min-width: 100%;
+}
+
+#navBarContainer {
+    background-color: black;
+    width: 220px;
+    position: fixed;
+    height:100vh;
+    top:0;
+    left:0;
+}
+
+#navBarContainer .navBar{
+    padding:25px;
+    display: flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.logo img{
+    width: 32px;
+    margin-bottom: 10px;
+}
+
+.navBar .group {
+    border-top: 1px solid #808080;
+    padding:10px 0;
+}
+
+.navBar .navItem {
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    letter-spacing: 1px;
+    position: relative;
+    color:#808080;
+}
+
+.navBar .navItem:hover{
+    color: white;
+}
+
+.icon {
+    position:absolute;
+    right: 0;
+    top: 6px;
+    width: 25px;
+}
+
+
+#mainViewContainer {
+    margin-left: 220px;
+    padding-bottom: 90px;
+    width: calc(100% - 220px);
+
+}
+
+#mainContent {
+    padding:0 20px;
+    color:white;
+}
+
+.pageHeadingBig {
+    padding:20px;
+    text-align: center;
+    font-weight: 300;
+
+}
+
+.gridViewItem {
+    display:inline-block;
+    margin-right: 20px;
+    width:29%;
+    max-width: 250px;
+    min-width: 150px;
+    cursor: pointer;
+}
+
+.gridViewItem img {
+    width:100%;
+}
+
+.gridViewInfo {
+    text-align: center;
+    padding: 5px 0;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.entityInfo {
+    padding: 40px 0 10px 0;
+    display: inline-block;
+    width:100%;
+    text-align: center;
+}
+
+.entityInfo .leftSection {
+    width: 30%;
+    float:left;
+    max-width: 250px;
+}
+
+.entityInfo img {
+    width:100%;
+}
+
+.entityInfo h2 {
+    margin-top: 0px;
+}
+
+.entityInfo span,
+.entityInfo p {
+    color:#808080;
+}
+.entityInfo span a {
+    color:white;
+    text-decoration: none;
+}
+
+
+.rightSection {
+    width: 70%;
+    float: left;
+    padding: 0px 10px 5px 40px;
+    box-sizing: border-box;
+}
+
+.trackListRow {
+    height: 40px;
+    padding: 15px 10px;
+    list-style: none;
+}
+
+.trackListRow span {
+    font-weight: 200;
+}
+
+.trackListRow:hover {
+    background-color: #282828;
+}
+
+.trackListRow .trackCount {
+    width: 8%;
+    float: left;
+}
+
+.trackListRow .trackCount img {
+    width: 20px;
+    visibility: hidden;
+    position: absolute;
+    cursor: pointer;
+}
+
+.trackListRow:hover .trackCount img {
+    visibility: visible;
+}
+
+.trackListRow:hover .trackCount span {
+    visibility: hidden;
+}
+
+.trackListRow .trackCount span {
+    visibility: visible;
+}
+.trackListRow .trackInfo {
+    width: 75%;
+    float: left;
+}
+.trackListRow .trackInfo .trackArtist {
+    display:block;
+    color: grey;
+}
+.trackListRow .trackOptions {
+    width: 5%;
+    float: left;
+    text-align: right;
+}
+.trackListRow .trackOptions img {
+    width: 15px;
+    visibility: hidden;
+}
+.trackListRow:hover .trackOptions img {
+    visibility: visible;
+}
+
+.trackListRow .trackDuration {
+    width: 12%;
+    float: left;
+    text-align: right;
+}
+.artInfo {
+    text-align: center;
+}
+.greenButton {
+    background-color: #1ED760;
+    border-radius: 30px;
+    border-style: none;
+    height: 40px;
+    color: white;
+    letter-spacing: 3px;
+    padding:5px 30px;
+}
+
+.blackButton {
+    background-color: #282828;
+    border-radius: 30px;
+    border-style: none;
+    height: 40px;
+    color: white;
+    letter-spacing: 3px;
+    padding:5px 10px;
+    display: block;
+    margin: 50px 0;
+    width: 100%;
+    font-size: 20px;
+}
+.artInfo .artName {
+    font-size: 50px;
+    letter-spacing: 1px;
+}
+.TitleContainer {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: 150;
+}
+.searchInputContainer{
+    height: 150px;
+    border:none;
+}
+.searchGuide {
+    font-weight: 100;
+    margin: 30px 30px;
+    letter-spacing: 3px;
+    font-size: 12;
+}
+.searchInput {
+    height: 60px;
+    background-color: #181818;
+    border-style: none;
+    font-size: 50px;
+    color: white;
+    margin: 0px 30px 0px 30px;
+    caret-color: green;
+    user-select: none;
+    user-focus: none;
+}
+input:focus {
+    outline: none;
+}
+span:focus {
+    outline: none;
+}
+
+.artistFoundGridContianer {
+    display: inline-flex;
+    text-align: center;
+    padding:15px 10px;
+}
+
+.artistFoundItem {
+    margin:50px;
+    height: 150px;
+    line-height: 150px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    min-width: 150px;
+    max-width: 200px;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 200;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    padding-top:20px;
+}
+
+.artistFoundItem:hover {
+    background-color: #282828;
+}
+.albumFoundContainer {
+    margin-top: 50px;
+}
+.buttonItems button {
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+.optionsMenu {
+    position:fixed;
+    background-color:#282828;
+    width:150px;
+    border:1px solid black;
+    border-radius: 3px;
+    z-index: 1000;
+    display: none;
+    text-align: center;
+}
+
+.optionsMenu ul {
+    list-style: none;
+
+    padding: 10px 15px;
+}
+
+.optionsMenu .item {
+    width: 100%;
+    padding:12px 20px;
+    box-sizing: border-box;
+    font-weight: 400;
+    color: #808080;
+    overflow: hidden;
+}
+.optionsMenu .item:hover {
+    background-color: #333;
+}
+
+.playlist {
+    border:none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding:12px 20px;
+    box-sizing: border-box;
+    font-weight: 400;
+    color:#fff;
+}
+
+.updateItem {
+    width: 100%;
+    background-color: #282828;
+    border: 1px solid white;
+    border-radius: 10px;
+    height: 80px;
+    padding: 20px;
+    margin-top:30px;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}
+
+.updateContainer {
+    text-align: center;
+}
+
+.noResult {
+    padding: 10px;
+    font-size: 60px;
+    color: #808080;
+}
+.trackListContainer ul{
+    padding:10px;
+}
+.Response {
+    text-align: center;
+    color: #808080;
+    border: 1px solid #808080;
+    padding: 5px;
+    display: none;
+}
+
+.modalItem:hover {
+    background-color: #808080;
+    cursor: pointer;
+}
+
+.controlButton img:hover {
+    cursor:pointer;
+}
+
+.trackList img:hover {
+    cursor: pointer;
+}
+
+.nowPlayingBar .albumLink img:hover {
+    cursor: pointer;
+}
+.trackInfo .singerName:hover {
+    cursor: pointer;
+}
+.trackListRow .trackArtist {
+    cursor: pointer;
+}

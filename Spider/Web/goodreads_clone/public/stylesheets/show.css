@@ -1,0 +1,142 @@
+body{
+background: #2980b9;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2c3e50, #2980b9);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2c3e50, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0;
+  border: 0;
+  font-family: Montserrat;
+
+}
+/* For Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+*{
+  box-sizing: border-box;
+}
+
+html{
+  height: 100%;
+  padding: 0;
+}
+.welcome{
+  color: #fffdfd;
+  font-size: 2.5em;
+}
+.outer{
+  display: table;
+  width: 100%;
+  height:100%;
+}
+.middle{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+  height:100%;
+}
+.profileimg{
+  border-radius:50%;
+  
+}
+.username{
+  font-size:2em;
+  color: white;
+  margin-bottom: 1em;
+}
+.error{
+  margin: 2px solid #CC0000;
+  border-radius: 4px;
+  background-color: rgba(255,68,68,0.5);
+  width:60%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+  padding: 1em;
+}
+
+.navbar{
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  justify-items: center;
+}
+.nav-btn-wrap,.welcome,.imgwrap{
+  grid: span 1;
+}
+.imgwrap{
+  background-color: white;
+  border-radius: 25px;
+  padding: 1em;
+  width: 50%;
+  align-self: center;
+}
+.nav-btn-wrap{
+  margin-top: 3em;
+  width: 100%;
+}
+.logout, .newpost{
+  
+  cursor: pointer;
+  color: white;
+  border: 0;
+  border-radius: 25px;
+  padding: 1em;
+  font-weight: bold;
+  transition: all 0.5s;
+  background: #57b846;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+.day-container-wrap{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-left: 1em;
+  margin-right: 1em;
+  grid-gap: 1em;
+  margin-bottom: 2em;
+}
+.day-container{
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5em;
+  padding-bottom: 1em;
+  text-align: left;
+  font-size: 1em;
+  grid-columns: span 1;
+  height: 100%;
+
+}
+.day-container .date-header{
+  font-size: 2em;
+  text-decoration: underline;
+}
+button{
+  transition: all 0.5s;
+}
+button:hover{
+  transition: all 0.5s;
+  background: #232323;
+}
+
+button, textarea, input{
+  font-family: Montserrat;
+}
+

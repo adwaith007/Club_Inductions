@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Meeting Requests</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/meetings.css">
+</head>
+<body>
+	<div class="outer">
+		<div class="middle">
+				<div class="navbar">
+					<a href="/profile" class="nav-btn-wrap"><button class="newpost">Home</button></a>
+					<p class="welcome">Welcome <%= user.name %></p>
+					<a href="/logout" class="nav-btn-wrap"><button class="logout">Logout</button></a>
+					
+					
+				</div>
+				<% if(errors&&errors!=""){ %>
+				<p class="error"><%= errors %></p>
+				<% } %>
+				<!-- sent requests -->
+				<div class="day-container">
+					<div class="h1">
+						<p>Received Requests</p>
+					</div>
+					<div class="appointment-container" id="rec-requests">
+					    <% user.meetingi.forEach(function(meeting){ %>
+    					   <div class="appointment-rec">
+    							<div class="h2">
+    								<p>Meeting with <%= meeting.user1.name %> (<%= meeting.user1.username %>)</p>
+    							</div>
+    							<div class="h4">
+    								<p>Start: <%= meeting.start.toDateString() %>	<%= meeting.start.toTimeString().substr(0, 8) %></p>
+    								<p>End: <%= meeting.end.toDateString() %>	<%= meeting.end.toTimeString().substr(0, 8) %></p>
+    							</div>
+    							<div class="btn-container">
+    								<form method="POST" action="/meeting/<%= meeting._id %>/confirm?_method=PUT"><div class="btn-wrapper"><button class="edit-btn">Accept</button></div></form>
+    								<form method="POST" action="/meeting/<%= meeting._id %>/reject?_method=PUT"><div class="btn-wrapper"><button class="delete-btn">Decline</button></div></form>
+    							</div>
+    						</div> 
+					    <% }) %>
+
+					</div>
+				</div>
+
+
+				<div class="day-container">
+					<div class="h1">
+						<p>Sent Requests</p>
+					</div>
+					<div class="appointment-container ">
+					<% user.meetingo.forEach(function(meeting){ %>
+    					
+    						<div class="appointment">
+    							<div class="h2">
+    								<p>Meeting with <%= meeting.user1.name %> (<%= meeting.user2.username %>)</p>
+    							</div>
+    							<div class="h4">
+    								<p>Start: <%= meeting.start.toDateString() %>	<%= meeting.start.toTimeString().substr(0, 8) %></p>
+    								<p>End: <%= meeting.end.toDateString() %>	<%= meeting.end.toTimeString().substr(0, 8) %></p>
+    							</div>
+    						</div>
+						
+					<% }) %>
+					</div>
+				</div>
+		</div>
+	</div>
+</body>
+
+<script>
+function refresh(){
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var user=JSON.parse(this.responseText);
+			var container=document.getElementById("rec-requests");
+			var htmlvar="";
+			console.log(user.meetingi);
+			user.meetingi.forEach(function(meeting){
+				htmlvar+="<div class='appointment-rec'><div class='h2'><p>Meeting with"+ meeting.user1.name +" ("+ meeting.user1.username+ ")</p></div><div class='h4'><p>Start: "+ meeting.start.toDateString().substr(0, 8) +"	"+ meeting.start.toTimeString().substr(0, 8) +"</p><p>End: "+ meeting.end.toDateString()+ "	"+ meeting.end.toTimeString() +"</p></div>";
+    			htmlvar+="<div class='btn-container'><form method='POST' action='/meeting/"+ meeting._id+ "/confirm?_method=PUT'><div class='btn-wrapper'><button class='edit-btn'>Accept</button></div></form><form method='POST' action='/meeting/"+ meeting._id +"/reject?_method=PUT'><div class='btn-wrapper'><button class='delete-btn'>Decline</button></div></form></div></div>";
+			})
+			container.innerHTML=htmlvar;
+			
+	    }
+	  };
+	xhttp.open("GET", "/meetingrefresh", true);
+	xhttp.send();	
+}
+
+setInterval(refresh, 3000);
+
+
+</script>
+
+<html>

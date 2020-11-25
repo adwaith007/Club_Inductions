@@ -1,0 +1,29 @@
+<% include ./partials/header%>
+<div class="ui container main">
+    <div class="ui container segment results"><h1>Here are your movies!!!</h1></div>
+    
+    <% data["Search"].forEach(function(i){ %>
+        <div class="ui container segment results">
+            <div class="ui huge header"><%= i["Title"]%></div>
+                <h3><%= i["Year"] %></h3>
+                <img src="<%= i["Poster"] %>" class="ui medium circular image results" >
+                <h3 class="genre"><%= i["Type"] %></h3>
+                <a class="ui button" href="movies/<%=i["imdbID"] %>">More Info</a>
+        </div>
+    <% }) %>
+    
+    <div class="searchagainbtn btns">
+        <a href="/movies" class="ui grey button again">Find Another Movie</a>
+    </div>
+    <br>
+
+    
+    <div class="pagenavbtn">
+        <a href="<%= "/results?name="+recent["name"]+"&year="+recent["year"]+"&ty="+recent["ty"]+"&p="+(parseInt(p)-parseInt(1)); %>" class="ui grey button">Previous</a>
+        <a href="<%= "/results?name="+recent["name"]+"&year="+recent["year"]+"&ty="+recent["ty"]+"&p="+(parseInt(p)+parseInt(1)); %>" class="ui grey button">Next</a>
+    </div>
+    
+    
+</div>
+
+<% include ./partials/footer%>

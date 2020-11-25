@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/signup.css">
+</head>
+<body>
+  <div class="outer">
+    <div class="middle">
+      <div class="main-container">
+        <div class="image-wrapper">
+          <div class="outer">
+            <div class="middle">
+              <img src="/images/signup.jpg" >
+            </div>
+          </div>
+
+        </div>
+        <div class="content-wrapper">
+          <div class="outer content">
+            <div class="middle">
+
+              <h1>Sign UP</h1>
+              <% if(errors!=""){ %>
+                <p class="error"><%=errors %></p>
+              <% } %>
+              <form method="POST" action="/signup">
+								<input type="text" name="name" placeholder="NAME" required>
+                <input type="email" name="email" placeholder="EMAIL" required>
+                <input type="password" name="password" placeholder="PASSWORD" minlength="8" required>
+								<input type="text" name="question" placeholder="SECURITY QUESTION" required>
+								<input type="password" name="answer" placeholder="ANSWER" required>
+                <button type="submit">Let Me In!!!</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<html>

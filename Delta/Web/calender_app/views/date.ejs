@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%=date %></title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="/stylesheets/date.css">
+</head>
+<body>
+	<div class="outer">
+		<div class="middle">
+			<div class="nav-container">
+				
+				<div class="navbar">
+					<a href="/profile" class="nav-btn-wrap"><button class="newpost">Home</button></a>
+					<p class="welcome">Welcome</p>
+					<a href="/logout" class="nav-btn-wrap"><button class="logout">Logout</button></a>
+					
+					
+				</div>
+				<div class="navbar">
+					<a href="/profile/meetings" class="nav-btn-wrap"><button class="logout">Meeting Requests</button></a>
+					<p class="welcome"></p>
+					<a href="/profile/new" class="nav-btn-wrap"><button class="newpost">Schedule New Task</button></a>
+					
+				</div>
+			</div>
+			<% if(errors&&errors!=""){ %>
+			<p class="error"><%= errors %></p>
+			<% } %>
+				<div class="day-container">
+					<div class="h1">
+						<p><%=date %></p>
+					</div>
+					<div class="appointment-container">
+					    <% for(let i=0;i<user.appointments.length;i++){ 
+					        let t=user.appointments[i].start;
+					        if(t.toDateString()==date){ %>
+        						<div class="appointment">
+        						    <div class="h4 timebar">
+        						        <%= user.appointments[i].start.toTimeString().substr(0, 8)%>-<%=user.appointments[i].end.toTimeString().substr(0, 8)%>
+        							</div>
+        							
+			        				<form method="POST" action="<%= "/profile/appointment/"+ i+"?_method=PUT" %>" id="editform<%= i%>">
+										<input type="text" name="title" placeholder="Title" value="<%= user.appointments[i].title%>" required>
+										<textarea name="desc" placeholder="Description" class="descarea" onkeyup="textAreaAdjust(this)" cols="40" rows="5" required><%= user.appointments[i].desc%></textarea>
+										<p style="display:none" class="start-ref"><%= user.appointments[i].start.toISOString() %></p>
+										<p style="display:none" class="end-ref"><%= user.appointments[i].end.toISOString() %></p>
+										<input type="datetime-local" name="start" class="start-date" required>
+										<input type="datetime-local" name="end" class="end-date" required>
+										</form>
+	        							<div class="btn-container">
+	        								<div class="btn-wrapper"><button class="edit-btn" type="submit" form="editform<%= i%>">Save Edits</button></div>
+	        								<form method="POST" action="<%= "/profile/appointment/"+ i+"?_method=DELETE" %>">
+	        									<div class="btn-wrapper"><button class="delete-btn" type="submit">Delete</button></div>
+	        								</form>
+	        							</div>
+        							
+        						</div> 
+					     <%   } }  %>
+					</div>
+				</div>
+		</div>
+	</div>
+	<script>
+		var startdates= document.querySelectorAll(".start-date");
+		var enddates= document.querySelectorAll(".end-date");
+		var startrefs= document.querySelectorAll(".start-ref");
+		var endrefs= document.querySelectorAll(".end-ref");
+		
+		for(let i=0;i<startdates.length;i++){
+			startdates[i].value=startrefs[i].innerHTML.substr(0,23);
+			enddates[i].value=endrefs[i].innerHTML.substr(0,23);
+		}
+	</script>
+</body>
+
+<html>
